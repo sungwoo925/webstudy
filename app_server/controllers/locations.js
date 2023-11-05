@@ -2,11 +2,11 @@ const { response } = require('express');
 var request = require('request');
 
 var apiOptions = {
-  server: 'https://appdev-4qu4.onrender.com/'
+  server: 'https://appdev-4qu4.onrender.com'
 };
 
 if(process.env.NODE_ENV === 'production'){
-  apiOptions.server = 'https://appdev-4qu4.onrender.com/';
+  apiOptions.server = 'https://appdev-4qu4.onrender.com';
 }
 
 const homelist = (req, res) => {
