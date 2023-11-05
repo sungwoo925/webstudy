@@ -4,7 +4,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 require('./app_api/models/db')
-const port = 8888;
 
 const indexRouter = require('./app_server/routes/index');
 const apiRouter = require('./app_api/routes/index');
@@ -15,7 +14,6 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'app_server', 'views'));
 app.set('view engine', 'pug');
-app.set('port', port);
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -42,10 +40,6 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
-});
-
-const server = app.listen(port, () => {
-  console.log(`서버가 포트 ${port}에서 실행 중입니다.`);
 });
 
 module.exports = app;
