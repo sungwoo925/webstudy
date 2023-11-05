@@ -1,8 +1,8 @@
 const { response } = require('express');
 var request = require('request');
 
-const apiOptions = {
-  server: 'http://localhost:3000/'
+var apiOptions = {
+  server: 'https://appdev-4qu4.onrender.com/'
 };
 
 if(process.env.NODE_ENV === 'production'){
