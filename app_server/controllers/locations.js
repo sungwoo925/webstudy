@@ -2,11 +2,11 @@ const { response } = require('express');
 var request = require('request');
 
 const apiOptions = {
-  server: 'https://appdev-4qu4.onrender.com'
+  server: 'http://localhost:3000/'
 };
 
 if(process.env.NODE_ENV === 'production'){
-  apiOptions.server = 'https://loc8rv2.herokuapp.com';
+  apiOptions.server = 'https://appdev-4qu4.onrender.com/';
 }
 
 const homelist = (req, res) => {
