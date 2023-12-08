@@ -1,13 +1,16 @@
 var createError = require('http-errors');
+require('dotenv').config()
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-require('./app_api/models/db')
+const passport = require('passport');
+require('./app_api/models/db');
+require('./app_api/config/passport');
 
 const indexRouter = require('./app_server/routes/index');
 const apiRouter = require('./app_api/routes/index');
-const usersRouter = require('./app_server/routes/users');
+// const usersRouter = require('./app_server/routes/users');
 
 var app = express();
 
@@ -20,11 +23,24 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'app_public', 'build')));
+app.use(passport.initialize());
+app.use('/api', (req,res,next) =>{
+  res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  next();
+});
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+// app.use('/users', usersRouter);
 app.use('/api', apiRouter);
 
+// error handler
+app.use(function(err, req, res, next) {
+  if(err.name === 'UnauthorizedError'){
+    res.status(401).json({"message": err.name + ": " + err.message});
+  }
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

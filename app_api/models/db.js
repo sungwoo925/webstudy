@@ -38,4 +38,5 @@ mongoose.connection.on('SIGTERM',function () {
     });
 });
 
-require('./locations')
+require('./locations');
+require('./users')
